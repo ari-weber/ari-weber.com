@@ -1,0 +1,25 @@
+---
+import GalleryPage from '../layouts/GalleryPage.astro';
+
+const photos = [
+  { src: '/images/Event & Concert/Greece_Party.jpg', alt: 'Party in Greece', title: 'Greece Party' },
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "ImageGallery",
+  "name": "Event & Concert Photography",
+  "description": "Event and concert photography by Ari Weber.",
+  "url": "https://ari-weber.com/events/",
+  "author": { "@type": "Person", "name": "Ari Weber" },
+};
+---
+
+<GalleryPage
+  title="Events & Concerts — Ari Weber Photography"
+  description="Event and concert photography by Ari Weber."
+  eyebrow="Collection 03"
+  heading="Event & Concert"
+  photos={photos}
+  schema={schema}
+/>

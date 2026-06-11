@@ -1,0 +1,29 @@
+---
+import GalleryPage from '../layouts/GalleryPage.astro';
+
+const photos = [
+  { src: '/images/Landscape & Architectural/Cave_Sunset_Greece.JPG',         alt: 'Cave Sunset, Greece',                  title: 'Cave Sunset, Greece' },
+  { src: '/images/Landscape & Architectural/Creswell_Side.jpg',               alt: 'Creswell — side view',                 title: 'Creswell Side' },
+  { src: '/images/Landscape & Architectural/Monastery_Meteora.JPG',           alt: 'Monastery at Meteora',                 title: 'Meteora Monastery' },
+  { src: '/images/Landscape & Architectural/Peristyle_Columns.JPG',           alt: 'Peristyle columns',                    title: 'Peristyle Columns' },
+  { src: '/images/Landscape & Architectural/Pillar_Names_Posidon_Temple.jpg', alt: 'Pillars at the Temple of Poseidon',    title: 'Temple of Poseidon' },
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "ImageGallery",
+  "name": "Landscapes & Architectural Photography",
+  "description": "Landscape and architectural photography by Ari Weber.",
+  "url": "https://ari-weber.com/landscapes/",
+  "author": { "@type": "Person", "name": "Ari Weber" },
+};
+---
+
+<GalleryPage
+  title="Landscapes & Architectural — Ari Weber Photography"
+  description="Landscape and architectural photography — caves, temples, monasteries, and more."
+  eyebrow="Collection 01"
+  heading="Landscapes & Architectural"
+  photos={photos}
+  schema={schema}
+/>

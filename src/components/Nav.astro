@@ -1,0 +1,277 @@
+---
+const navLinks = [
+  { label: 'Home',       href: '/' },
+  { label: 'Contact',    href: '/contact/' },
+];
+
+const galleryLinks = [
+  { label: 'Landscapes', href: '/landscapes/' },
+  { label: 'Portraits',  href: '/portraits/' },
+  { label: 'Events',     href: '/events/' },
+  { label: 'Stylistic',  href: '/stylistic/' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="nav-wrapper">
+  <nav class="nav container" aria-label="Main navigation">
+    <a href="/" class="nav-logo" aria-label="Ari Weber — home">Ari Weber</a>
+
+    <!-- Desktop nav -->
+    <ul class="nav-links" role="list">
+      {navLinks.map(link => (
+        <li>
+          <a
+            href={link.href}
+            class:list={['nav-link', { 'is-active': currentPath === link.href }]}
+            aria-current={currentPath === link.href ? 'page' : undefined}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+
+      <li class="nav-sep" aria-hidden="true"></li>
+
+      {galleryLinks.map(link => (
+        <li>
+          <a
+            href={link.href}
+            class:list={['nav-link', { 'is-active': currentPath === link.href }]}
+            aria-current={currentPath === link.href ? 'page' : undefined}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Mobile toggle -->
+    <button
+      class="nav-toggle"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="mobile-menu" aria-hidden="true">
+    <ul role="list">
+      {[...navLinks, ...galleryLinks].map(link => (
+        <li>
+          <a
+            href={link.href}
+            class:list={['mobile-link', { 'is-active': currentPath === link.href }]}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</header>
+
+<style>
+  /* ── Shell ── */
+  .nav-wrapper {
+    position: fixed;
+    top: 0;
+    inset-inline: 0;
+    z-index: 100;
+    background: linear-gradient(
+      to bottom,
+      rgba(13, 13, 13, 0.96) 0%,
+      rgba(13, 13, 13, 0.0) 100%
+    );
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: background var(--dur-base) var(--ease-out);
+  }
+
+  .nav-wrapper.scrolled {
+    background: rgba(13, 13, 13, 0.96);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--nav-h);
+  }
+
+  /* ── Logo ── */
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: var(--text-lg);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    transition: color var(--dur-fast);
+    flex-shrink: 0;
+  }
+
+  .nav-logo:hover {
+    color: var(--accent);
+  }
+
+  /* ── Desktop links ── */
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+  }
+
+  .nav-sep {
+    width: 1px;
+    height: 1rem;
+    background: var(--border-light);
+    flex-shrink: 0;
+  }
+
+  .nav-link {
+    font-size: var(--text-sm);
+    font-weight: 400;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    transition: color var(--dur-fast);
+    position: relative;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--accent);
+    transition: width var(--dur-base) var(--ease-out);
+  }
+
+  .nav-link:hover {
+    color: var(--text);
+  }
+
+  .nav-link:hover::after,
+  .nav-link.is-active::after {
+    width: 100%;
+  }
+
+  .nav-link.is-active {
+    color: var(--text);
+  }
+
+  /* ── Hamburger ── */
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    padding: var(--space-2);
+    cursor: pointer;
+  }
+
+  .bar {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--text);
+    transform-origin: center;
+    transition:
+      transform var(--dur-base) var(--ease-out),
+      opacity   var(--dur-base);
+  }
+
+  .nav-toggle[aria-expanded="true"] .bar:nth-child(1) {
+    transform: translateY(6.5px) rotate(45deg);
+  }
+  .nav-toggle[aria-expanded="true"] .bar:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  .nav-toggle[aria-expanded="true"] .bar:nth-child(3) {
+    transform: translateY(-6.5px) rotate(-45deg);
+  }
+
+  /* ── Mobile menu ── */
+  .mobile-menu {
+    display: none;
+    background: var(--bg-raised);
+    border-top: 1px solid var(--border);
+    padding: var(--space-4) var(--gutter) var(--space-6);
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path var(--dur-base) var(--ease-out);
+  }
+
+  .mobile-menu.is-open {
+    clip-path: inset(0 0 0 0);
+  }
+
+  .mobile-link {
+    display: block;
+    padding: var(--space-3) 0;
+    font-size: var(--text-lg);
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    transition: color var(--dur-fast);
+  }
+
+  .mobile-link:last-of-type {
+    border-bottom: none;
+  }
+
+  .mobile-link:hover,
+  .mobile-link.is-active {
+    color: var(--text);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .nav-links {
+      display: none;
+    }
+
+    .nav-toggle {
+      display: flex;
+    }
+
+    .mobile-menu {
+      display: block;
+    }
+  }
+</style>
+
+<script>
+  // Scrolled state
+  const wrapper = document.querySelector('.nav-wrapper');
+  const onScroll = () => wrapper?.classList.toggle('scrolled', window.scrollY > 20);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Toggle
+  const toggle = document.querySelector('.nav-toggle') as HTMLButtonElement;
+  const menu   = document.getElementById('mobile-menu');
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!isOpen));
+    toggle.setAttribute('aria-label', isOpen ? 'Open menu' : 'Close menu');
+    menu?.classList.toggle('is-open', !isOpen);
+    menu?.setAttribute('aria-hidden', String(isOpen));
+  });
+
+  // Close on nav link click (mobile)
+  menu?.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      toggle?.setAttribute('aria-expanded', 'false');
+      menu.classList.remove('is-open');
+      menu.setAttribute('aria-hidden', 'true');
+    });
+  });
+</script>

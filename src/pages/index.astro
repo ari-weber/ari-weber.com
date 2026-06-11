@@ -1,11 +1,336 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Base from '../layouts/Base.astro';
+import CategoryCard from '../components/CategoryCard.astro';
+import FeaturedGrid from '../components/FeaturedGrid.astro';
+import GalleryGrid from '../components/GalleryGrid.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://ari-weber.com/#website",
+      "url": "https://ari-weber.com/",
+      "name": "Ari Weber Photography",
+      "description": "Photography portfolio — landscapes, portraits, events, and stylistic photography.",
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://ari-weber.com/" }
+      ]
+    }
+  ]
+};
+
+const categories = [
+  {
+    number: '01',
+    label: 'Landscapes & Architectural',
+    href: '/landscapes/',
+    imageSrc: '/images/Landscape & Architectural/Cave_Sunset_Greece.JPG',
+    imageAlt: 'Cave Sunset, Greece',
+  },
+  {
+    number: '02',
+    label: 'Portrait',
+    href: '/portraits/',
+    imageSrc: '/images/Portrait/Elsa_Tree_Shot.jpg',
+    imageAlt: 'Portrait photo',
+  },
+  {
+    number: '03',
+    label: 'Event',
+    href: '/events/',
+    imageSrc: '/images/Event & Concert/Greece_Party.jpg',
+    imageAlt: 'Event photo, Greece',
+  },
+  {
+    number: '04',
+    label: 'Stylistic',
+    href: '/stylistic/',
+    imageSrc: '/images/Stylistic & Artistic/Plane_Full_Moon.png',
+    imageAlt: 'Plane silhouette against a full moon',
+  },
+];
+
+const featured = [
+  {
+    src: '/images/Portrait/Elsa_Bridge_Snowing.jpg',
+    alt: 'Elsa Shilling on a bridge in the snow, Athens GA',
+    caption: 'Elsa Shilling in the snow — Athens, GA, 2026',
+  },
+  {
+    src: '/images/Stylistic & Artistic/Waxing_Gibbous_Moon.png',
+    alt: 'Waxing Gibbous Moon',
+    caption: 'Waxing Gibbous — 2026',
+  },
+  {
+    src: '/images/Portrait/Cat_Greece.jpg',
+    alt: 'Cat in Greece',
+    caption: 'Cat — Athens, Greece, 2026',
+  },
+] as [typeof featured[0], typeof featured[0], typeof featured[0]];
+
+const allPhotos = [
+  { src: '/images/Event & Concert/Greece_Party.jpg',                    alt: 'Greece Party',              title: 'Greece Party' },
+  { src: '/images/Landscape & Architectural/Cave_Sunset_Greece.JPG',    alt: 'Cave Sunset, Greece',       title: 'Cave Sunset, Greece' },
+  { src: '/images/Portrait/Cassidy_Portrait_B&W.JPG',                   alt: 'Cassidy — Portrait B&W',    title: 'Cassidy' },
+  { src: '/images/Stylistic & Artistic/Plane_Full_Moon.png',             alt: 'Plane passing a full moon', title: 'Plane Full Moon' },
+  { src: '/images/Landscape & Architectural/Creswell_Side.jpg',          alt: 'Creswell — side view',      title: 'Creswell Side' },
+  { src: '/images/Portrait/Cat_Greece.jpg',                              alt: 'Cat in Greece',             title: 'Cat, Greece' },
+  { src: '/images/Stylistic & Artistic/Washburn_G2V_Sun.jpg',            alt: 'Washburn G2V guitar in sun',title: 'Washburn G2V' },
+  { src: '/images/Landscape & Architectural/Monastery_Meteora.JPG',      alt: 'Monastery at Meteora',      title: 'Meteora Monastery' },
+  { src: '/images/Portrait/Elsa_Bridge_Snowing.jpg',                     alt: 'Elsa on bridge, snowing',   title: 'Elsa — Bridge Snowing' },
+  { src: '/images/Stylistic & Artistic/Waxing_Gibbous_Moon.png',         alt: 'Waxing Gibbous Moon',       title: 'Waxing Gibbous Moon' },
+  { src: '/images/Landscape & Architectural/Peristyle_Columns.JPG',      alt: 'Peristyle columns',         title: 'Peristyle Columns' },
+  { src: '/images/Portrait/Elsa_Tree_Shot.jpg',                          alt: 'Elsa by a tree',            title: 'Elsa — Tree Shot' },
+  { src: '/images/Landscape & Architectural/Pillar_Names_Posidon_Temple.jpg', alt: 'Pillars at Temple of Poseidon', title: 'Temple of Poseidon' },
+  { src: '/images/Portrait/Jude_Greece_Bench_Sunset.jpg',                alt: 'Jude on a bench at sunset, Greece', title: 'Jude — Greece Sunset' },
+  { src: '/images/Portrait/Picking_Flowers_Greece.jpg',                  alt: 'Picking flowers, Greece',   title: 'Picking Flowers, Greece' },
+];
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<Base
+  title="Ari Weber — Photography"
+  description="Photography portfolio — landscapes, portraits, events, and stylistic photography. Based in Chamblee, GA."
+  schema={schema}
+>
+  <!-- ── 1. Hero ── -->
+  <section class="hero" aria-label="Hero">
+    <!-- 4-image grid background -->
+    <div class="hero-bg" aria-hidden="true">
+      <img src="/images/Landscape & Architectural/Cave_Sunset_Greece.JPG"  alt="" loading="eager" />
+      <img src="/images/Portrait/Cassidy_Portrait_B&W.JPG"                  alt="" loading="eager" />
+      <img src="/images/Event & Concert/Greece_Party.jpg"                    alt="" loading="lazy"  />
+      <img src="/images/Stylistic & Artistic/Plane_Full_Moon.png"            alt="" loading="lazy"  />
+    </div>
+    <div class="hero-overlay" aria-hidden="true"></div>
+
+    <div class="container hero-content">
+      <p class="eyebrow fade-up">Photography Portfolio</p>
+      <h1 class="hero-headline fade-up">
+        Your moments,<br />
+        <em>your way.</em>
+      </h1>
+      <p class="hero-sub fade-up">
+        Event, portrait, and artistic photography<br class="hide-mobile" />
+        based in Chamblee.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── 2. Collections ── -->
+  <section class="section collections" id="collections">
+    <div class="container">
+      <div class="section-header scroll-reveal">
+        <div>
+          <p class="eyebrow">Collections</p>
+          <h2>Browse by category</h2>
+        </div>
+        <a href="/contact/" class="link-arrow">Book a session →</a>
+      </div>
+
+      <div class="category-grid">
+        {categories.map(cat => (
+          <CategoryCard {...cat} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 3. Selected Work ── -->
+  <section class="section selected" id="selected">
+    <div class="container">
+      <div class="section-header scroll-reveal">
+        <div>
+          <p class="eyebrow">Selected Work</p>
+          <h2>Recent favourites</h2>
+        </div>
+      </div>
+
+      <FeaturedGrid photos={featured} />
+    </div>
+  </section>
+
+  <!-- ── 4. Full Collection ── -->
+  <section class="section full-collection" id="all-work">
+    <div class="container">
+      <div class="section-header scroll-reveal">
+        <div>
+          <p class="eyebrow">All Work</p>
+          <h2>The full collection</h2>
+        </div>
+      </div>
+
+      <GalleryGrid photos={allPhotos} />
+    </div>
+  </section>
+
+  <!-- ── 5. Availability Strip ── -->
+  <section class="availability" aria-label="Availability">
+    <div class="container availability-inner">
+      <div class="scroll-reveal">
+        <p class="eyebrow">Currently accepting</p>
+        <h3>New commissions for 2026</h3>
+      </div>
+      <a href="/contact/" class="btn-primary scroll-reveal">Get in touch</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ── Hero ── */
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: var(--space-20);
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  .hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.55) saturate(0.6);
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      160deg,
+      rgba(13,13,13,0.3) 0%,
+      rgba(13,13,13,0.65) 60%,
+      rgba(13,13,13,0.85) 100%
+    );
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding-top: var(--nav-h);
+  }
+
+  .hero-headline {
+    color: var(--text);
+    max-width: 14ch;
+  }
+
+  .hero-sub {
+    color: rgba(240, 236, 228, 0.7);
+    font-size: var(--text-lg);
+    font-weight: 300;
+    max-width: 36ch;
+  }
+
+  .hide-mobile {
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .hide-mobile { display: inline; }
+  }
+
+  /* ── Section header ── */
+  .section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    margin-bottom: var(--space-10);
+  }
+
+  .section-header h2 {
+    margin-top: var(--space-2);
+  }
+
+  /* ── Category grid ── */
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+  }
+
+  @media (max-width: 600px) {
+    .category-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .category-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  /* ── Link arrow ── */
+  .link-arrow {
+    font-size: var(--text-sm);
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    transition: color var(--dur-fast);
+    white-space: nowrap;
+  }
+
+  .link-arrow:hover {
+    color: var(--text);
+  }
+
+  /* ── Availability ── */
+  .availability {
+    background: var(--bg-raised);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding-block: var(--space-16);
+  }
+
+  .availability-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-8);
+  }
+
+  .availability h3 {
+    margin-top: var(--space-2);
+  }
+
+  /* ── CTA button ── */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-6);
+    background: var(--accent);
+    color: var(--bg);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition:
+      background var(--dur-fast),
+      transform var(--dur-fast);
+    flex-shrink: 0;
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-dark);
+    transform: translateY(-1px);
+  }
+</style>

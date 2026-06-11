@@ -1,0 +1,124 @@
+---
+interface FeaturedPhoto {
+  src: string;
+  alt: string;
+  caption?: string;
+}
+
+interface Props {
+  photos: [FeaturedPhoto, FeaturedPhoto, FeaturedPhoto];
+}
+
+const { photos } = Astro.props;
+const [main, ...secondary] = photos;
+---
+
+<div class="featured-grid">
+  <!-- Large left image -->
+  <figure class="featured-main scroll-reveal">
+    <div class="featured-img-wrap">
+      <img
+        src={main.src}
+        alt={main.alt}
+        loading="lazy"
+        decoding="async"
+        width="900"
+        height="1100"
+      />
+    </div>
+    {main.caption && <figcaption class="featured-caption">{main.caption}</figcaption>}
+  </figure>
+
+  <!-- Right column: two stacked -->
+  <div class="featured-secondary">
+    {secondary.map((photo, i) => (
+      <figure
+        class="featured-sub scroll-reveal"
+        style={`transition-delay: ${(i + 1) * 100}ms`}
+      >
+        <div class="featured-img-wrap">
+          <img
+            src={photo.src}
+            alt={photo.alt}
+            loading="lazy"
+            decoding="async"
+            width="600"
+            height="500"
+          />
+        </div>
+        {photo.caption && <figcaption class="featured-caption">{photo.caption}</figcaption>}
+      </figure>
+    ))}
+  </div>
+</div>
+
+<style>
+  .featured-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 768px) {
+    .featured-grid {
+      grid-template-columns: 3fr 2fr;
+    }
+  }
+
+  figure {
+    margin: 0;
+    overflow: hidden;
+    background: var(--bg-subtle);
+    position: relative;
+  }
+
+  .featured-secondary {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: var(--space-3);
+  }
+
+  .featured-img-wrap {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+  }
+
+  .featured-main .featured-img-wrap {
+    aspect-ratio: 3 / 4;
+  }
+
+  @media (min-width: 768px) {
+    .featured-main .featured-img-wrap {
+      aspect-ratio: unset;
+      height: 100%;
+      min-height: 480px;
+    }
+  }
+
+  .featured-sub .featured-img-wrap {
+    aspect-ratio: 4 / 3;
+  }
+
+  .featured-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--dur-slow) var(--ease-out);
+  }
+
+  .featured-main:hover img,
+  .featured-sub:hover img {
+    transform: scale(1.04);
+  }
+
+  .featured-caption {
+    position: absolute;
+    bottom: var(--space-4);
+    left: var(--space-4);
+    right: var(--space-4);
+    font-size: var(--text-xs);
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.06em;
+  }
+</style>

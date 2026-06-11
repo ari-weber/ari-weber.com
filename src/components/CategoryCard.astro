@@ -1,0 +1,97 @@
+---
+interface Props {
+  number: string;
+  label: string;
+  href: string;
+  imageSrc: string;
+  imageAlt: string;
+}
+
+const { number, label, href, imageSrc, imageAlt } = Astro.props;
+---
+
+<a href={href} class="category-card scroll-reveal" aria-label={`Browse ${label}`}>
+  <div class="card-image">
+    <img
+      src={imageSrc}
+      alt={imageAlt}
+      loading="lazy"
+      decoding="async"
+      width="600"
+      height="480"
+    />
+  </div>
+  <div class="card-body">
+    <span class="card-number eyebrow">Collection {number}</span>
+    <span class="card-label">{label}</span>
+    <span class="card-arrow" aria-hidden="true">→</span>
+  </div>
+</a>
+
+<style>
+  .category-card {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    background: var(--bg-subtle);
+    transition: border-color var(--dur-base);
+  }
+
+  .card-image {
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+  }
+
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--dur-slow) var(--ease-out);
+    filter: brightness(0.85);
+  }
+
+  .category-card:hover .card-image img {
+    transform: scale(1.05);
+    filter: brightness(1);
+  }
+
+  .card-body {
+    position: absolute;
+    bottom: 0;
+    inset-inline: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-8) var(--space-5) var(--space-5);
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.80) 0%,
+      rgba(0, 0, 0, 0.30) 60%,
+      transparent 100%
+    );
+  }
+
+  .card-number {
+    display: block;
+  }
+
+  .card-label {
+    font-family: var(--serif);
+    font-size: var(--text-xl);
+    color: var(--text);
+    font-weight: 400;
+  }
+
+  .card-arrow {
+    display: block;
+    font-size: var(--text-lg);
+    color: var(--accent);
+    transform: translateX(0);
+    transition: transform var(--dur-base) var(--ease-out);
+    margin-top: var(--space-2);
+  }
+
+  .category-card:hover .card-arrow {
+    transform: translateX(5px);
+  }
+</style>

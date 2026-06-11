@@ -1,0 +1,100 @@
+---
+interface Photo {
+  src: string;
+  alt: string;
+  title?: string;
+}
+
+interface Props {
+  photos: Photo[];
+}
+
+const { photos } = Astro.props;
+---
+
+<div class="gallery-grid">
+  {photos.map((photo, i) => (
+    <figure
+      class="gallery-item scroll-reveal"
+      style={`transition-delay: ${(i % 6) * 60}ms`}
+    >
+      <div class="gallery-item-inner">
+        <img
+          src={photo.src}
+          alt={photo.alt}
+          loading="lazy"
+          decoding="async"
+          width="800"
+          height="600"
+        />
+        {photo.title && (
+          <figcaption class="gallery-caption">{photo.title}</figcaption>
+        )}
+      </div>
+    </figure>
+  ))}
+</div>
+
+<style>
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 640px) {
+    .gallery-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .gallery-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .gallery-item {
+    margin: 0;
+    overflow: hidden;
+    background: var(--bg-subtle);
+  }
+
+  .gallery-item-inner {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+  }
+
+  .gallery-item-inner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--dur-slow) var(--ease-out);
+  }
+
+  .gallery-item:hover img {
+    transform: scale(1.04);
+  }
+
+  .gallery-caption {
+    position: absolute;
+    bottom: 0;
+    inset-inline: 0;
+    padding: var(--space-4) var(--space-4) var(--space-3);
+    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
+    font-size: var(--text-xs);
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 0.04em;
+    opacity: 0;
+    transform: translateY(4px);
+    transition:
+      opacity var(--dur-base) var(--ease-out),
+      transform var(--dur-base) var(--ease-out);
+  }
+
+  .gallery-item:hover .gallery-caption {
+    opacity: 1;
+    transform: none;
+  }
+</style>

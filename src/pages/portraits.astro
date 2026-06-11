@@ -1,0 +1,30 @@
+---
+import GalleryPage from '../layouts/GalleryPage.astro';
+
+const photos = [
+  { src: '/images/Portrait/Cassidy_Portrait_B&W.JPG',   alt: 'Cassidy — Portrait B&W',               title: 'Cassidy' },
+  { src: '/images/Portrait/Cat_Greece.jpg',              alt: 'Cat in Greece',                        title: 'Cat, Greece' },
+  { src: '/images/Portrait/Elsa_Bridge_Snowing.jpg',     alt: 'Elsa on a bridge in the snow',         title: 'Elsa — Bridge Snowing' },
+  { src: '/images/Portrait/Elsa_Tree_Shot.jpg',          alt: 'Elsa by a tree',                       title: 'Elsa — Tree Shot' },
+  { src: '/images/Portrait/Jude_Greece_Bench_Sunset.jpg',alt: 'Jude on a bench at sunset, Greece',   title: 'Jude — Greece Sunset' },
+  { src: '/images/Portrait/Picking_Flowers_Greece.jpg',  alt: 'Picking flowers, Greece',              title: 'Picking Flowers, Greece' },
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "ImageGallery",
+  "name": "Portrait Photography",
+  "description": "Portrait photography by Ari Weber.",
+  "url": "https://ari-weber.com/portraits/",
+  "author": { "@type": "Person", "name": "Ari Weber" },
+};
+---
+
+<GalleryPage
+  title="Portraits — Ari Weber Photography"
+  description="Portrait photography by Ari Weber — candid, lifestyle, and studio portraits."
+  eyebrow="Collection 02"
+  heading="Portrait"
+  photos={photos}
+  schema={schema}
+/>

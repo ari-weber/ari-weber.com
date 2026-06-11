@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ari-weber.com/sitemap-index.xml

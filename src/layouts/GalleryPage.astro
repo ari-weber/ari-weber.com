@@ -1,0 +1,53 @@
+---
+import Base from '../layouts/Base.astro';
+import GalleryGrid from '../components/GalleryGrid.astro';
+
+interface Photo {
+  src: string;
+  alt: string;
+  title?: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  eyebrow: string;
+  heading: string;
+  photos: Photo[];
+  schema?: object;
+}
+
+const { title, description, eyebrow, heading, photos, schema } = Astro.props;
+---
+
+<Base title={title} description={description} schema={schema}>
+  <div class="gallery-page">
+    <header class="page-header">
+      <div class="container">
+        <p class="eyebrow">{eyebrow}</p>
+        <h1>{heading}</h1>
+      </div>
+    </header>
+
+    <section class="section">
+      <div class="container">
+        <GalleryGrid photos={photos} />
+      </div>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .gallery-page {
+    padding-top: var(--nav-h);
+  }
+
+  .page-header {
+    padding-block: var(--space-16) var(--space-10);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .page-header h1 {
+    margin-top: var(--space-3);
+  }
+</style>

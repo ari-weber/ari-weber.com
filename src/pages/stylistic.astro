@@ -1,0 +1,27 @@
+---
+import GalleryPage from '../layouts/GalleryPage.astro';
+
+const photos = [
+  { src: '/images/Stylistic & Artistic/Plane_Full_Moon.png',    alt: 'Plane silhouette against a full moon', title: 'Plane Full Moon' },
+  { src: '/images/Stylistic & Artistic/Washburn_G2V_Sun.jpg',   alt: 'Washburn G2V guitar in sunlight',      title: 'Washburn G2V' },
+  { src: '/images/Stylistic & Artistic/Waxing_Gibbous_Moon.png',alt: 'Waxing Gibbous Moon',                  title: 'Waxing Gibbous Moon' },
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "ImageGallery",
+  "name": "Stylistic & Artistic Photography",
+  "description": "Stylistic and artistic photography by Ari Weber.",
+  "url": "https://ari-weber.com/stylistic/",
+  "author": { "@type": "Person", "name": "Ari Weber" },
+};
+---
+
+<GalleryPage
+  title="Stylistic & Artistic — Ari Weber Photography"
+  description="Stylistic and artistic photography by Ari Weber — moons, guitars, long exposures."
+  eyebrow="Collection 04"
+  heading="Stylistic & Artistic"
+  photos={photos}
+  schema={schema}
+/>
