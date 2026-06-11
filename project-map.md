@@ -68,7 +68,7 @@
 2. **Hero** — 4-image grid background, overlay, eyebrow + H1 ("Your moments, *your way.*"), subtitle (location: Chamblee), no CTA button currently (commented out).
 3. **Collections / Browse by category** — 4 category cards with cover image, collection number, name, arrow. "Book a session →" link at section header.
 4. **Selected Work / Recent favourites** — 3-up featured grid (1 large + 2 small). Currently: Elsa Bridge Snowing, Waxing Gibbous Moon, Cat Greece.
-5. **Full collection** — All-work grid, auto-generated via `build-gallery.js` between `<!-- GALLERY:START -->` and `<!-- GALLERY:END -->` markers.
+5. **Full collection** — All-work grid using CSS columns masonry; images show in natural aspect ratios.
 6. **Availability strip** — "Currently accepting / New commissions for 2026" with "Get in touch" CTA.
 7. **Footer** — Brand name + copyright.
 
@@ -103,8 +103,23 @@
 - CSS custom properties (`var(--serif)`, `var(--border)`, etc.) — migrate to Astro global styles
 - Animations: `.fade-up` staggered on hero, `.scroll-reveal` on cards — recreate with Astro (CSS + small JS island or `transition:animate`)
 - Hero: 4-image grid behind overlay — keep layout, use Astro `<Image />` for optimised delivery
-- Gallery: old site used a Node build script (`build-gallery.js`) to inject HTML. In Astro, replace with a content collection or glob import — no build script needed.
+- Gallery: CSS `columns` masonry — images display at natural aspect ratios, flow top-to-bottom per column. No JS needed.
 - Nav mobile hamburger (`nav-toggle`) — recreate as minimal Astro component with scoped `<script>`
+
+---
+
+## Key Implementation Notes
+
+### TypeScript in Astro scripts
+- Inline `<script>` tags inside `<head>` (GA, Clarity) run in browser context; TS will squawk about `window.dataLayer`, `gtag()`, etc. These are cosmetic VS Code errors only — add `// @ts-nocheck` as the first line of each such `<script>` block to silence them (already done via comment in Base.astro).
+- Frontmatter (server-side) TS is strict. Tuple types for component props must be annotated explicitly — do **not** use `as [typeof x[0], ...]` self-referential casts. Define a local interface and annotate directly: `const arr: [Foo, Foo, Foo] = [...]`.
+
+### Gallery layout
+- `GalleryGrid.astro` uses CSS `columns` (not CSS Grid) for masonry. Images natural height, no `object-fit: cover`. `break-inside: avoid` on each item. Gap handled via `margin-bottom` on items.
+- `FeaturedGrid.astro` (Selected Work section on home): no fixed `aspect-ratio` on wrappers; images use `width: 100%; height: auto`. `grid-template-rows` removed from `.featured-secondary`.
+
+### Contact form
+- Backend: Formspree. **`ACTION_URL` placeholder in `contact.astro` must be replaced** with real endpoint (e.g. `https://formspree.io/f/xxxx`) before going live.
 
 ---
 
@@ -121,6 +136,7 @@
     ContactForm.astro
   /layouts
     Base.astro          ← head, meta, analytics, nav, footer
+    GalleryPage.astro   ← shared layout for the 4 category pages
   /pages
     index.astro
     contact.astro
@@ -159,6 +175,8 @@
 - [x] Build all 4 category pages
 - [x] Build `contact.astro` with form (Formspree — replace `ACTION_URL` with endpoint)
 - [x] Carry over scroll-reveal and fade-up animations
+- [x] Fix tuple type annotation in `index.astro` (`featured` array)
+- [x] Convert gallery grids to natural-aspect-ratio CSS columns masonry
 
 ### Assets
 - [ ] Copy all images from old repo into `/public/images/` (preserve folder names: `Landscape & Architectural/`, `Portrait/`, `Event & Concert/`, `Stylistic & Artistic/`)
@@ -179,7 +197,7 @@
 - [ ] Test all pages on mobile
 - [ ] Check Lighthouse scores (target: 90+ Performance, 100 SEO)
 - [ ] Verify all image alt text
-- [ ] Test contact form submission
+- [ ] Test contact form submission (replace ACTION_URL first)
 - [ ] Confirm analytics firing
 - [ ] Redirect `weberphoto.qzz.io` → `ari-weber.com` (if possible via old host)
 
@@ -205,3 +223,9 @@
 - `contact.astro`: Formspree backend — **`ACTION_URL` placeholder must be replaced** with real Formspree endpoint before going live.
 - Files created: `astro.config.mjs`, `global.css`, `Base.astro`, `GalleryPage.astro`, `Nav.astro`, `Footer.astro`, `GalleryGrid.astro`, `CategoryCard.astro`, `FeaturedGrid.astro`, `index.astro`, `landscapes.astro`, `portraits.astro`, `events.astro`, `stylistic.astro`, `contact.astro`, `robots.txt`, `google136cde2d23213dc0.html`.
 - Windows install commands provided (PowerShell `Copy-Item`).
+
+### Chat 3 — Bug fixes & masonry layout (2026-06-11)
+- **TS error fix (`index.astro`):** `featured` array had a self-referential `as [typeof featured[0], ...]` cast causing TS7022 circular inference error. Fixed by declaring a local `interface FeaturedPhoto` and annotating the const directly: `const featured: [FeaturedPhoto, FeaturedPhoto, FeaturedPhoto] = [...]`.
+- **TS cosmetic errors (`Base.astro`):** `window.dataLayer`, `gtag()` argument count, Clarity IIFE variable types — all browser-context globals inside `<script>` tags. Not build-breaking; silence with `// @ts-nocheck` at top of each affected script block.
+- **Masonry layout (`GalleryGrid.astro`):** Replaced `display: grid` + fixed `aspect-ratio: 4/3` with CSS `columns` masonry. Images now render at natural aspect ratio. Key changes: `columns: 1/2/3` at breakpoints, `break-inside: avoid` + `margin-bottom` on items, `height: auto` on `img`. Hover scale and caption fade-in unchanged.
+- **Natural aspect ratios (`FeaturedGrid.astro`):** Removed `aspect-ratio: 3/4` from `.featured-main .featured-img-wrap`, `aspect-ratio: 4/3` from `.featured-sub .featured-img-wrap`, `grid-template-rows: 1fr 1fr` from `.featured-secondary`, and `height: 100%; object-fit: cover` from images. All images now display full height at natural ratio.

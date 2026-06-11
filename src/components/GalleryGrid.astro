@@ -24,8 +24,8 @@ const { photos } = Astro.props;
           alt={photo.alt}
           loading="lazy"
           decoding="async"
-          width="800"
-          height="600"
+          width="100%"
+          height="auto"
         />
         {photo.title && (
           <figcaption class="gallery-caption">{photo.title}</figcaption>
@@ -37,25 +37,22 @@ const { photos } = Astro.props;
 
 <style>
   .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
-    gap: var(--space-3);
+    .gallery-grid {
+    columns: 2;
+    column-gap: var(--space-3); }
   }
 
   @media (min-width: 640px) {
-    .gallery-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+    .gallery-grid { columns: 2; }
   }
 
   @media (min-width: 1024px) {
-    .gallery-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
+    .gallery-grid { columns: 3; }
   }
 
   .gallery-item {
-    margin: 0;
+    margin: 0 0 var(--space-3);
+    break-inside: avoid;
     overflow: hidden;
     background: var(--bg-subtle);
   }
@@ -63,13 +60,13 @@ const { photos } = Astro.props;
   .gallery-item-inner {
     position: relative;
     overflow: hidden;
-    aspect-ratio: 4 / 3;
+    /* no aspect-ratio */
   }
 
   .gallery-item-inner img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    display: block;
     transition: transform var(--dur-slow) var(--ease-out);
   }
 
