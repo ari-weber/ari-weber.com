@@ -164,9 +164,9 @@
 ---
 
 ### Setup
-- [ ] Register `ari-weber.com` on Cloudflare Registrar **[10/10]**
-- [ ] Connect GitHub repo to Vercel **[10/10]**
-- [ ] Point Cloudflare DNS to Vercel nameservers **[10/10]**
+- [x] Register `ari-weber.com` on Cloudflare Registrar **[10/10]**
+- [x] Connect GitHub repo to Vercel **[10/10]**
+- [x] Point Cloudflare DNS to Vercel nameservers **[10/10]**
 - [x] Configure `astro.config.mjs` — add `@astrojs/sitemap`, set `site: 'https://ari-weber.com'`
 
 ---
@@ -188,10 +188,10 @@
 ---
 
 ### Assets
-- [ ] Copy all images from old repo into `/public/images/` — **nothing renders without this** **[10/10]**
+- [x] Copy all images from old repo into `/public/images/` — **nothing renders without this** **[10/10]**
 - [ ] Create `public/images/og-default.jpg` for Open Graph fallback (missing file causes broken social sharing cards) **[8/10]**
 - [ ] Audit images — convert to WebP where possible; use Astro `<Image />` component for optimised serving **[8/10]**
-- [ ] Copy `favicon.ico` from old repo into `public/` (only `favicon.svg` exists currently) **[7/10]**
+- [x] Copy `favicon.ico` from old repo into `public/` (only `favicon.svg` exists currently) **[7/10]**
 
 ---
 
@@ -252,9 +252,9 @@
 - [x] JSON-LD schema: `WebSite` + `BreadcrumbList` on home; `ImageGallery` on all gallery pages
 - [x] `robots.txt` written (points to sitemap-index.xml)
 - [x] `google136cde2d23213dc0.html` carried over to `public/`
-- [ ] Re-verify Google Search Console (new domain) **[5/10]**
+- [x] Re-verify Google Search Console (new domain) **[5/10]**
 - [ ] Update GA / Clarity property to new domain **[6/10]**
-- [ ] Confirm `sitemap.xml` auto-generation works after first Vercel deploy **[6/10]**
+- [x] Confirm `sitemap.xml` auto-generation works after first Vercel deploy **[6/10]**
 
 ---
 
@@ -262,9 +262,9 @@
 - [ ] Test all pages on mobile **[9/10]**
 - [ ] Check Lighthouse scores (target: 90+ Performance, 100 SEO) **[7/10]**
 - [ ] Verify all image alt text **[6/10]**
-- [ ] Test contact form submission end-to-end **[9/10]**
+- [x] Test contact form submission end-to-end **[9/10]**
 - [ ] Confirm analytics firing (GA + Clarity both active on production) **[7/10]**
-- [ ] Redirect `weberphoto.qzz.io` → `ari-weber.com` (if possible via old host) **[4/10]**
+- [x] Redirect `weberphoto.qzz.io` → `ari-weber.com` (if possible via old host) **[4/10]**
 
 ---
 
