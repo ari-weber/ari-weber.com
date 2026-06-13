@@ -104,5 +104,71 @@ const canonicalURL = canonical
         observer.observe(el);
       });
     </script>
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" aria-hidden="true">
+    <div class="lightbox-backdrop"></div>
+    <button class="lightbox-close" aria-label="Close">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+    <button class="lightbox-prev" aria-label="Previous">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <button class="lightbox-next" aria-label="Next">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <figure class="lightbox-figure">
+      <img id="lightbox-img" src="" alt="" />
+    </figure>
+  </div>
+
+  <script>
+    const lb         = document.getElementById('lightbox')!;
+    const lbImg      = document.getElementById('lightbox-img') as HTMLImageElement;
+    const lbBackdrop = lb.querySelector('.lightbox-backdrop')!;
+    const lbClose    = lb.querySelector('.lightbox-close') as HTMLButtonElement;
+    const lbPrev     = lb.querySelector('.lightbox-prev') as HTMLButtonElement;
+    const lbNext     = lb.querySelector('.lightbox-next') as HTMLButtonElement;
+
+    let idx = 0;
+
+    const getTriggers = () =>
+      Array.from(document.querySelectorAll<HTMLElement>('[data-lightbox-src]'));
+
+    function show(i: number) {
+      const items = getTriggers();
+      idx = (i + items.length) % items.length;
+      lbImg.src = items[idx].dataset.lightboxSrc!;
+      lbImg.alt = items[idx].dataset.lightboxAlt ?? '';
+      lb.classList.add('is-open');
+      lb.removeAttribute('aria-hidden');
+      lb.classList.toggle('lb-solo', items.length === 1);
+      document.body.style.overflow = 'hidden';
+      lbClose.focus();
+    }
+
+    function close() {
+      lb.classList.remove('is-open');
+      lb.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('click', (e) => {
+      const t = (e.target as Element).closest<HTMLElement>('[data-lightbox-src]');
+      if (!t) return;
+      show(getTriggers().indexOf(t));
+    });
+
+    lbClose.addEventListener('click', close);
+    lbBackdrop.addEventListener('click', close);
+    lbPrev.addEventListener('click', () => show(idx - 1));
+    lbNext.addEventListener('click', () => show(idx + 1));
+
+    document.addEventListener('keydown', (e) => {
+      if (!lb.classList.contains('is-open')) return;
+      if (e.key === 'Escape')     close();
+      if (e.key === 'ArrowLeft')  show(idx - 1);
+      if (e.key === 'ArrowRight') show(idx + 1);
+    });
+  </script>
   </body>
 </html>

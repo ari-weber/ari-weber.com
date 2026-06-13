@@ -16,15 +16,11 @@ const [main, ...secondary] = photos;
 <div class="featured-grid">
   <!-- Large left image -->
   <figure class="featured-main scroll-reveal">
+    <!-- new (main) -->
     <div class="featured-img-wrap">
-      <img
-        src={main.src}
-        alt={main.alt}
-        loading="lazy"
-        decoding="async"
-        width="900"
-        height="1100"
-      />
+      <button class="lb-trigger" data-lightbox-src={main.src} data-lightbox-alt={main.alt} aria-label={`View ${main.alt}`}>
+        <img src={main.src} alt="" loading="lazy" decoding="async" />
+      </button>
     </div>
     {main.caption && <figcaption class="featured-caption">{main.caption}</figcaption>}
   </figure>
@@ -36,15 +32,11 @@ const [main, ...secondary] = photos;
         class="featured-sub scroll-reveal"
         style={`transition-delay: ${(i + 1) * 100}ms`}
       >
+        <!-- new (secondary) -->
         <div class="featured-img-wrap">
-          <img
-            src={photo.src}
-            alt={photo.alt}
-            loading="lazy"
-            decoding="async"
-            width="600"
-            height="500"
-          />
+          <button class="lb-trigger" data-lightbox-src={photo.src} data-lightbox-alt={photo.alt} aria-label={`View ${photo.alt}`}>
+            <img src={photo.src} alt="" loading="lazy" decoding="async" />
+          </button>
         </div>
         {photo.caption && <figcaption class="featured-caption">{photo.caption}</figcaption>}
       </figure>
@@ -114,5 +106,13 @@ const [main, ...secondary] = photos;
     font-size: var(--text-xs);
     color: rgba(255,255,255,0.6);
     letter-spacing: 0.06em;
+  }
+  .lb-trigger {
+    display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
   }
 </style>

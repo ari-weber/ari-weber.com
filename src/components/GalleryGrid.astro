@@ -18,17 +18,23 @@ const { photos } = Astro.props;
       class="gallery-item scroll-reveal"
       style={`transition-delay: ${(i % 6) * 60}ms`}
     >
-      <div class="gallery-item-inner">
+      <!-- new -->
+      <button
+        class="gallery-item-inner"
+        data-lightbox-src={photo.src}
+        data-lightbox-alt={photo.alt}
+        aria-label={`View ${photo.title ?? photo.alt}`}
+      >
         <img
           src={photo.src}
-          alt={photo.alt}
+          alt=""
           loading="lazy"
           decoding="async"
         />
         {photo.title && (
           <figcaption class="gallery-caption">{photo.title}</figcaption>
         )}
-      </div>
+      </button>
     </figure>
   ))}
 </div>
@@ -99,5 +105,15 @@ const { photos } = Astro.props;
       opacity: 1;
       transform: none;
     }
+  }
+
+    button.gallery-item-inner {
+    appearance: none;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
   }
 </style>

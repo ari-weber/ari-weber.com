@@ -28,28 +28,28 @@ const categories = [
     number: '01',
     label: 'Landscapes & Architectural',
     href: '/landscapes/',
-    imageSrc: '/images/Landscape & Architectural/Cave_Sunset_Greece.JPG',
+    imageSrc: '/images/landscapes/Cave_Sunset_Greece.JPG',
     imageAlt: 'Cave Sunset, Greece',
   },
   {
     number: '02',
-    label: 'Portrait',
+    label: 'Portraits',
     href: '/portraits/',
-    imageSrc: '/images/Portrait/Elsa_Tree_Shot.jpg',
+    imageSrc: '/images/portraits/Elsa_Tree_Shot.jpg',
     imageAlt: 'Portrait photo',
   },
   {
     number: '03',
-    label: 'Event',
+    label: 'Concerts & Events',
     href: '/events/',
-    imageSrc: '/images/Event & Concert/Greece_Party.jpg',
+    imageSrc: '/images/events/Greece_Party.jpg',
     imageAlt: 'Event photo, Greece',
   },
   {
     number: '04',
     label: 'Stylistic',
     href: '/stylistic/',
-    imageSrc: '/images/Stylistic & Artistic/Plane_Full_Moon.png',
+    imageSrc: '/images/stylistic/Plane_Full_Moon.png',
     imageAlt: 'Plane silhouette against a full moon',
   },
 ];
@@ -58,38 +58,38 @@ interface FeaturedPhoto { src: string; alt: string; caption?: string; }
 
 const featured: [FeaturedPhoto, FeaturedPhoto, FeaturedPhoto] = [
   {
-    src: '/images/Portrait/Elsa_Bridge_Snowing.jpg',
+    src: '/images/portraits/Elsa_Bridge_Snowing.jpg',
     alt: 'Elsa Shilling on a bridge in the snow, Athens GA',
     caption: 'Elsa Shilling in the snow — Athens, GA, 2026',
   },
   {
-    src: '/images/Stylistic & Artistic/Waxing_Gibbous_Moon.png',
+    src: '/images/stylistic/Waxing_Gibbous_Moon.png',
     alt: 'Waxing Gibbous Moon',
     caption: 'Waxing Gibbous — 2026',
   },
   {
-    src: '/images/Portrait/Cat_Greece.jpg',
+    src: '/images/portraits/Cat_Greece.jpg',
     alt: 'Cat in Greece',
     caption: 'Cat — Athens, Greece, 2026',
   },
 ];
 
 const allPhotos = [
-  { src: '/images/Event & Concert/Greece_Party.jpg',                    alt: 'Greece Party',              title: 'Greece Party' },
-  { src: '/images/Landscape & Architectural/Cave_Sunset_Greece.JPG',    alt: 'Cave Sunset, Greece',       title: 'Cave Sunset, Greece' },
-  { src: '/images/Portrait/Cassidy_Portrait_B&W.JPG',                   alt: 'Cassidy — Portrait B&W',    title: 'Cassidy' },
-  { src: '/images/Stylistic & Artistic/Plane_Full_Moon.png',             alt: 'Plane passing a full moon', title: 'Plane Full Moon' },
-  { src: '/images/Landscape & Architectural/Creswell_Side.jpg',          alt: 'Creswell — side view',      title: 'Creswell Side' },
-  { src: '/images/Portrait/Cat_Greece.jpg',                              alt: 'Cat in Greece',             title: 'Cat, Greece' },
-  { src: '/images/Stylistic & Artistic/Washburn_G2V_Sun.jpg',            alt: 'Washburn G2V guitar in sun',title: 'Washburn G2V' },
-  { src: '/images/Landscape & Architectural/Monastery_Meteora.JPG',      alt: 'Monastery at Meteora',      title: 'Meteora Monastery' },
-  { src: '/images/Portrait/Elsa_Bridge_Snowing.jpg',                     alt: 'Elsa on bridge, snowing',   title: 'Elsa — Bridge Snowing' },
-  { src: '/images/Stylistic & Artistic/Waxing_Gibbous_Moon.png',         alt: 'Waxing Gibbous Moon',       title: 'Waxing Gibbous Moon' },
-  { src: '/images/Landscape & Architectural/Peristyle_Columns.JPG',      alt: 'Peristyle columns',         title: 'Peristyle Columns' },
-  { src: '/images/Portrait/Elsa_Tree_Shot.jpg',                          alt: 'Elsa by a tree',            title: 'Elsa — Tree Shot' },
-  { src: '/images/Landscape & Architectural/Pillar_Names_Posidon_Temple.jpg', alt: 'Pillars at Temple of Poseidon', title: 'Temple of Poseidon' },
-  { src: '/images/Portrait/Jude_Greece_Bench_Sunset.jpg',                alt: 'Jude on a bench at sunset, Greece', title: 'Jude — Greece Sunset' },
-  { src: '/images/Portrait/Picking_Flowers_Greece.jpg',                  alt: 'Picking flowers, Greece',   title: 'Picking Flowers, Greece' },
+  { src: '/images/events/Greece_Party.jpg',                    alt: 'Greece Party',              title: 'Greece Party' },
+  { src: '/images/landscapes/Cave_Sunset_Greece.JPG',    alt: 'Cave Sunset, Greece',       title: 'Cave Sunset, Greece' },
+  { src: '/images/portraits/Cassidy_Portrait_B&W.JPG',                   alt: 'Cassidy — Portrait B&W',    title: 'Cassidy' },
+  { src: '/images/stylistic/Plane_Full_Moon.png',             alt: 'Plane passing a full moon', title: 'Plane Full Moon' },
+  { src: '/images/landscapes/Creswell_Side.jpg',          alt: 'Creswell — side view',      title: 'Creswell Side' },
+  { src: '/images/portraits/Cat_Greece.jpg',                              alt: 'Cat in Greece',             title: 'Cat, Greece' },
+  { src: '/images/stylistic/Washburn_G2V_Sun.jpg',            alt: 'Washburn G2V guitar in sun',title: 'Washburn G2V' },
+  { src: '/images/landscapes/Monastery_Meteora.JPG',      alt: 'Monastery at Meteora',      title: 'Meteora Monastery' },
+  { src: '/images/portraits/Elsa_Bridge_Snowing.jpg',                     alt: 'Elsa on bridge, snowing',   title: 'Elsa — Bridge Snowing' },
+  { src: '/images/stylistic/Waxing_Gibbous_Moon.png',         alt: 'Waxing Gibbous Moon',       title: 'Waxing Gibbous Moon' },
+  { src: '/images/landscapes/Peristyle_Columns.JPG',      alt: 'Peristyle columns',         title: 'Peristyle Columns' },
+  { src: '/images/portraits/Elsa_Tree_Shot.jpg',                          alt: 'Elsa by a tree',            title: 'Elsa — Tree Shot' },
+  { src: '/images/landscapes/Pillar_Names_Posidon_Temple.jpg', alt: 'Pillars at Temple of Poseidon', title: 'Temple of Poseidon' },
+  { src: '/images/portraits/Jude_Greece_Bench_Sunset.jpg',                alt: 'Jude on a bench at sunset, Greece', title: 'Jude — Greece Sunset' },
+  { src: '/images/portraits/Picking_Flowers_Greece.jpg',                  alt: 'Picking flowers, Greece',   title: 'Picking Flowers, Greece' },
 ];
 ---
 
@@ -102,10 +102,10 @@ const allPhotos = [
   <section class="hero" aria-label="Hero">
     <!-- 4-image grid background -->
     <div class="hero-bg" aria-hidden="true">
-      <img src="/images/Landscape & Architectural/Cave_Sunset_Greece.JPG"  alt="" loading="eager" />
-      <img src="/images/Portrait/Cassidy_Portrait_B&W.JPG"                  alt="" loading="eager" />
-      <img src="/images/Event & Concert/Greece_Party.jpg"                    alt="" loading="lazy"  />
-      <img src="/images/Stylistic & Artistic/Plane_Full_Moon.png"            alt="" loading="lazy"  />
+      <img src="/images/landscapes/Cave_Sunset_Greece.JPG"  alt="" loading="eager" />
+      <img src="/images/portraits/Cassidy_Portrait_B&W.JPG"                  alt="" loading="eager" />
+      <img src="/images/events/Greece_Party.jpg"                    alt="" loading="lazy"  />
+      <img src="/images/stylistic/Plane_Full_Moon.png"            alt="" loading="lazy"  />
     </div>
     <div class="hero-overlay" aria-hidden="true"></div>
 
@@ -155,17 +155,28 @@ const allPhotos = [
     </div>
   </section>
 
+  <!-- new -->
   <!-- ── 4. Full Collection ── -->
   <section class="section full-collection" id="all-work">
     <div class="container">
-      <div class="section-header scroll-reveal">
+      <button
+        class="collection-toggle scroll-reveal"
+        id="collection-toggle"
+        aria-expanded="false"
+        aria-controls="collection-body"
+      >
         <div>
           <p class="eyebrow">All Work</p>
           <h2>The full collection</h2>
         </div>
-      </div>
+        <svg class="toggle-chevron" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
 
-      <GalleryGrid photos={allPhotos} />
+      <div id="collection-body" class="collection-body" aria-hidden="true">
+        <GalleryGrid photos={allPhotos} />
+      </div>
     </div>
   </section>
 
@@ -335,4 +346,54 @@ const allPhotos = [
     background: var(--accent-dark);
     transform: translateY(-1px);
   }
+
+  /* ── Full collection toggle ── */
+  .collection-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: var(--space-6) 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    text-align: left;
+    transition: border-color var(--dur-base);
+  }
+
+  .collection-toggle:hover {
+    border-color: var(--border-light);
+  }
+
+  .toggle-chevron {
+    color: var(--accent);
+    flex-shrink: 0;
+    transition: transform var(--dur-base) var(--ease-out);
+  }
+
+  .collection-toggle[aria-expanded="true"] .toggle-chevron {
+    transform: rotate(180deg);
+  }
+
+  .collection-body {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.6s var(--ease-out);
+  }
+
+  .collection-body.is-open {
+    max-height: 20000px;
+  }
 </style>
+
+<script>
+  const toggle = document.getElementById('collection-toggle') as HTMLButtonElement;
+  const body   = document.getElementById('collection-body');
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!isOpen));
+    body?.classList.toggle('is-open', !isOpen);
+    body?.setAttribute('aria-hidden', String(isOpen));
+  });
+</script>
