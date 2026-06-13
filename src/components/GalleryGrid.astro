@@ -24,8 +24,6 @@ const { photos } = Astro.props;
           alt={photo.alt}
           loading="lazy"
           decoding="async"
-          width="100%"
-          height="auto"
         />
         {photo.title && (
           <figcaption class="gallery-caption">{photo.title}</figcaption>
@@ -37,17 +35,15 @@ const { photos } = Astro.props;
 
 <style>
   .gallery-grid {
-    .gallery-grid {
     columns: 2;
-    column-gap: var(--space-3); }
   }
 
   @media (min-width: 640px) {
-    .gallery-grid { columns: 2; }
+    .gallery-grid { columns: 2; column-gap: var(--space-3); }
   }
 
   @media (min-width: 1024px) {
-    .gallery-grid { columns: 3; }
+    .gallery-grid { columns: 3; column-gap: var(--space-3); }
   }
 
   .gallery-item {
@@ -67,11 +63,6 @@ const { photos } = Astro.props;
     width: 100%;
     height: auto;
     display: block;
-    transition: transform var(--dur-slow) var(--ease-out);
-  }
-
-  .gallery-item:hover img {
-    transform: scale(1.04);
   }
 
   .gallery-caption {
@@ -83,15 +74,30 @@ const { photos } = Astro.props;
     font-size: var(--text-xs);
     color: rgba(255,255,255,0.75);
     letter-spacing: 0.04em;
-    opacity: 0;
-    transform: translateY(4px);
-    transition:
-      opacity var(--dur-base) var(--ease-out),
-      transform var(--dur-base) var(--ease-out);
   }
 
-  .gallery-item:hover .gallery-caption {
-    opacity: 1;
-    transform: none;
+  /* Hover effects only on pointer devices — prevents stuck-hover on touch
+     and ensures captions are always visible on mobile */
+  @media (hover: hover) and (pointer: fine) {
+    .gallery-item-inner img {
+      transition: transform var(--dur-slow) var(--ease-out);
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.04);
+    }
+
+    .gallery-caption {
+      opacity: 0;
+      transform: translateY(4px);
+      transition:
+        opacity var(--dur-base) var(--ease-out),
+        transform var(--dur-base) var(--ease-out);
+    }
+
+    .gallery-item:hover .gallery-caption {
+      opacity: 1;
+      transform: none;
+    }
   }
 </style>
