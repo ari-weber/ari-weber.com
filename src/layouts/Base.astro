@@ -1,4 +1,6 @@
 ---
+import SpeedInsights from '@vercel/speed-insights/astro';
+import Analytics from '@vercel/analytics/astro'
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
@@ -33,6 +35,8 @@ const canonicalURL = canonical
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
+    <SpeedInsights />
+    <Analytics/>
 
     <!-- Open Graph -->
     <meta property="og:type"        content="website" />
