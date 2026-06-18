@@ -3,6 +3,7 @@ import GalleryPage from '../layouts/GalleryPage.astro';
 import type { ImageMetadata } from 'astro';  // ← required
 import { globToPhotos } from '../utils/photos';
 
+<<<<<<< HEAD
 const photos = globToPhotos(
   import.meta.glob<{ default: ImageMetadata }>(
     '../assets/images/portraits/*.{jpg,jpeg,JPG,png,PNG,webp}',
@@ -10,6 +11,25 @@ const photos = globToPhotos(
   )
 );
 photos.sort((a, b) => b.alt.localeCompare(a.alt));
+=======
+const photos = [
+  { src: '/images/portraits/Cassidy_Portrait_B&W.JPG',   alt: 'Cassidy — Portrait B&W',               title: 'Cassidy' },
+  { src: '/images/portraits/Cat_Greece.jpg',              alt: 'Cat in Greece',                        title: 'Cat, Greece' },
+  { src: '/images/portraits/Elsa_Bridge_Snowing.jpg',     alt: 'Elsa on a bridge in the snow',         title: 'Elsa — Bridge Snowing' },
+  { src: '/images/portraits/Elsa_Tree_Shot.jpg',          alt: 'Elsa by a tree',                       title: 'Elsa — Tree Shot' },
+  { src: '/images/portraits/Jude_Greece_Bench_Sunset.jpg',alt: 'Jude on a bench at sunset, Greece',   title: 'Jude — Greece Sunset' },
+  { src: '/images/portraits/Picking_Flowers_Greece.jpg',  alt: 'Picking flowers, Greece',              title: 'Picking Flowers, Greece' },
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "ImageGallery",
+  "name": "Portrait Photography",
+  "description": "Portrait photography by Ari Weber.",
+  "url": "https://ari-weber.com/portraits/",
+  "author": { "@type": "Person", "name": "Ari Weber" },
+};
+>>>>>>> 9e4cf3f97996e1a46703293e98ada112f0807fff
 ---
 
 <GalleryPage

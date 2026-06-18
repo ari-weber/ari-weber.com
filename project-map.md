@@ -199,8 +199,8 @@
 
 - [ ] **Image paths with spaces will fail on strict CDNs** — folder names `Landscape & Architectural`, `Event & Concert`, and `Stylistic & Artistic` contain unencoded spaces in all `src` attributes throughout the codebase. Browsers auto-encode spaces in relative hrefs but raw `src` attribute strings can 404 on Cloudflare/Vercel CDN edge nodes. Either rename folders to kebab-case (`landscape-architectural/`) and update all references, or URL-encode all paths (`Landscape%20%26%20Architectural`). Renaming is cleaner and future-safe. **[9/10]**
 - [ ] **`package.json` / `package-lock.json` mismatch** — `@astrojs/check` and `typescript` are in the lockfile but absent from `package.json`. `npm install` on a clean clone will not install them; type checking silently breaks. Add both as `devDependencies` in `package.json`. **[8/10]**
-- [ ] **`GalleryGrid.astro` dead CSS: `column-gap` never applied** — the rule is inside a nested `.gallery-grid .gallery-grid {}` selector (the outer block is empty). `column-gap: var(--space-3)` is dead code and the browser falls back to `normal` (≈1em). Fix by promoting it to the top-level `.gallery-grid {}` rule. **[6/10]**
-- [ ] **Invalid `img` HTML attributes in `GalleryGrid.astro`** — `width="100%"` and `height="auto"` are not valid HTML attribute values (they accept integers only). These provide no CLS prevention. Remove them; sizing is already handled by CSS. **[6/10]**
+- [x] **`GalleryGrid.astro` dead CSS: `column-gap` never applied** — the rule is inside a nested `.gallery-grid .gallery-grid {}` selector (the outer block is empty). `column-gap: var(--space-3)` is dead code and the browser falls back to `normal` (≈1em). Fix by promoting it to the top-level `.gallery-grid {}` rule. **[6/10]**
+- [x] **Invalid `img` HTML attributes in `GalleryGrid.astro`** — `width="100%"` and `height="auto"` are not valid HTML attribute values (they accept integers only). These provide no CLS prevention. Remove them; sizing is already handled by CSS. **[6/10]**
 - [ ] **GA and Clarity fire in development mode** — both analytics snippets in `Base.astro` run unconditionally. Wrap each `<script>` in `{import.meta.env.PROD && <script>…</script>}` to avoid polluting production analytics with dev traffic. **[6/10]**
 - [ ] **Dead CSS block in `FeaturedGrid.astro`** — empty `@media (min-width: 768px) { .featured-main .featured-img-wrap { /* comments only */ } }` block. Delete it. **[3/10]**
 - [ ] **`package.json` name mismatch** — `package.json` declares `"name": "ari-weber-com"` but `package-lock.json` root entry says `"name": "ari-weber"`. Trivial but causes confusion; unify to `ari-weber`. **[2/10]**
@@ -233,6 +233,32 @@
 - [ ] **Mobile nav does not trap focus** — when the hamburger menu is open, pressing Tab lets focus escape the menu into the page behind it. Add a focus-trap (listen for Tab/Shift+Tab on first/last focusable items; also close on Escape). **[7/10]**
 - [ ] **Gallery captions only accessible on hover** — `.gallery-caption` has `opacity: 0` by default; keyboard/screen-reader users never see them. Either make captions always visible, or use a `<figcaption>` that is visually hidden but in the DOM (not `opacity: 0` which is still accessible, but `transform` + `opacity` together can cause issues). Current implementation is fine for screen readers (opacity 0 is still in the a11y tree) but verify with VoiceOver. **[5/10]**
 - [ ] **Contact form has no programmatic inline error messages** — on failed submission the form relies on browser-native validation bubbles, which are unstyled and inconsistent cross-browser. Add visible `aria-describedby` error messages per field. **[5/10]**
+
+---
+
+### Mobile-Specific Issues
+
+- [x] **Gallery and featured captions never visible on touch devices** — `.gallery-caption` and `.featured-caption` are `opacity: 0` by default and only revealed on `:hover`. Touch devices don't trigger hover states, so photo titles are permanently invisible to mobile users. Fix: wrap the hover-opacity rule in `@media (hover: hover)` and add an unconditional `opacity: 1` rule inside `@media (hover: none)` so captions always show on touch. **[8/10]**
+
+- [ ] **Category cards excessively tall in 1-column mobile layout** — `.card-image` has `aspect-ratio: 3/4` inside a full-width single-column grid on < 600px screens. On a 375px phone each card is ~450px tall; all four = ~1800px of scrolling just for the Collections section. Fix: override aspect ratio to `4/3` or `16/9` inside the `@media (max-width: 600px)` block, or keep 2-column layout on mobile and reduce the ratio. **[7/10]**
+
+- [x] **Fixed nav-wrapper grows to include hidden mobile menu height, causing black overlay on scroll** — `.mobile-menu` was `display: block` inside the fixed `.nav-wrapper` but hidden via `clip-path`. Since `clip-path` doesn't affect layout, the nav-wrapper silently grew to include the full menu height. Once `.scrolled` fired at scrollY > 20px, `background: rgba(13,13,13,0.96)` painted that entire height solid black. Fixed by making `.mobile-menu` `position: absolute; top: 100%` so it hangs below the nav-wrapper without contributing to its height. **[9/10]**
+
+- [ ] **No body scroll lock when mobile menu is open** — the background page scrolls freely while the hamburger menu is open. Users attempting to reach a nav link can accidentally scroll the page behind the overlay instead. Fix: set `document.body.style.overflow = 'hidden'` on menu open and restore it on close; handle the Vercel/edge-case where `body` height collapses by also setting `position: fixed; width: 100%` if needed. **[7/10]**
+
+- [ ] **Mobile menu has no outside-tap handler** — there is no backdrop element or `document` click listener to close the menu when tapping outside it. On mobile, tapping outside a menu is the primary dismissal gesture. Fix: inject a full-screen transparent overlay `<div>` behind the menu when it opens; tapping the overlay closes the menu and removes the overlay. **[6/10]**
+
+- [ ] **Touch targets below 44px on mobile** — `.mobile-link` has `padding: var(--space-3) 0` (12px top/bottom) at 18px font-size ≈ 42px total height. `.btn-primary` has `padding: var(--space-3) var(--space-6)` ≈ 40px total height. Both fall below the WCAG 2.5.5 recommended 44×44px minimum. Fix: increase vertical padding to `var(--space-3) + 2px` on mobile links and to `var(--space-4) var(--space-6)` on primary buttons. **[6/10]**
+
+- [ ] **`<input type="date">` ignores dark theme on iOS Safari** — iOS Safari renders date inputs with system-native light-theme chrome regardless of CSS `background-color`, `color`, or `border` overrides. On the contact page this produces a jarring white picker inside a dark form. Fix: add `color-scheme: dark` to the input element; if the system picker still clashes, fall back to `<input type="text" pattern="\d{4}-\d{2}-\d{2}" placeholder="YYYY-MM-DD">`. **[5/10]**
+
+- [ ] **Featured grid stacks to excessive height on mobile** — on < 768px screens, `.featured-grid` switches to `grid-template-columns: 1fr`. All three selected-work photos stack vertically at natural aspect ratio and full width; a single portrait image can be 500px+ tall, making this section 1500px+ of height. Fix: add a `max-height` clamp (e.g. `max-height: 70vw`) on `.featured-main .featured-img-wrap` at mobile, and display the two secondary photos side-by-side (`grid-template-columns: 1fr 1fr`) even on mobile. **[5/10]**
+
+- [ ] **Native `<select>` ignores custom styles on iOS** — the contact form's inquiry dropdown uses `appearance: none; -webkit-appearance: none` and a decorative `.select-arrow` span. On iOS the native picker sheet overrides padding, border-radius, and font in unpredictable ways and the custom arrow can overlap the native one. Fix: test on real iOS device; if broken, remove the custom arrow span and rely on a neutral reset, or build a fully custom listbox with `role="listbox"`. **[4/10]**
+
+- [ ] **`backdrop-filter` unsupported without solid fallback on some Android browsers** — the nav uses `backdrop-filter: blur(8px)` with `-webkit-backdrop-filter`. Older/budget Android browsers (WebView, Firefox Android < 103) silently ignore it. The existing gradient background is sufficient, but without `@supports (backdrop-filter: blur()) {}` guarding the rule the nav can appear unexpectedly transparent against light content. Fix: move `backdrop-filter` into a `@supports (backdrop-filter: blur())` block; outside that block set `background: rgba(13,13,13,0.96)` unconditionally. **[4/10]**
+
+- [x] **Hover image-zoom animations cause "stuck hover" on touch** — `.gallery-item:hover img { transform: scale(1.04); }`, `.category-card:hover .card-image img`, and similar rules can fire on first tap on iOS/Android and then stay in the scaled state until the user taps elsewhere. Wrap all `:hover` transform rules in `@media (hover: hover) and (pointer: fine)` so they only apply on true pointer devices. **[3/10]**
 
 ---
 
@@ -294,6 +320,17 @@
 - **TS cosmetic errors (`Base.astro`):** `window.dataLayer`, `gtag()` argument count, Clarity IIFE variable types — all browser-context globals inside `<script>` tags. Not build-breaking; silence with `// @ts-nocheck` at top of each affected script block.
 - **Masonry layout (`GalleryGrid.astro`):** Replaced `display: grid` + fixed `aspect-ratio: 4/3` with CSS `columns` masonry. Images now render at natural aspect ratio. Key changes: `columns: 1/2/3` at breakpoints, `break-inside: avoid` + `margin-bottom` on items, `height: auto` on `img`. Hover scale and caption fade-in unchanged.
 - **Natural aspect ratios (`FeaturedGrid.astro`):** Removed `aspect-ratio: 3/4` from `.featured-main .featured-img-wrap`, `aspect-ratio: 4/3` from `.featured-sub .featured-img-wrap`, `grid-template-rows: 1fr 1fr` from `.featured-secondary`, and `height: 100%; object-fit: cover` from images. All images now display full height at natural ratio.
+
+### Chat 6 — Mobile black overlay bug (2026-06-13)
+- User reported a large black area blocking ~half the screen on mobile after scrolling.
+- Root cause identified: `.mobile-menu` was `display: block` inside `position: fixed` `.nav-wrapper` but hidden via `clip-path: inset(0 0 100% 0)`. `clip-path` doesn't affect layout, so the wrapper grew to include the full menu height. When `.scrolled` class fired at scrollY > 20px, `background: rgba(13,13,13,0.96)` painted the entire oversized wrapper solid black.
+- Fix: `.mobile-menu` changed to `position: absolute; top: 100%` — hangs below the wrapper without affecting its height. `clip-path` animation unchanged.
+- Added as fixed item in Mobile-Specific Issues section.
+
+### Chat 5 — Mobile audit (2026-06-12)
+- Audited all source files specifically for mobile regressions.
+- 10 new issues documented under new "Mobile-Specific Issues" section in To-Do.
+- Key findings: gallery/featured captions permanently hidden on touch (hover-only, `opacity: 0`); category cards ~450px tall in 1-column layout (4 cards = ~1800px scroll); no body scroll lock or outside-tap handler on mobile menu; touch targets below 44px on `.mobile-link` and `.btn-primary`; `<input type="date">` renders in system light theme on iOS; featured grid stacks to ~1500px+ height on mobile; `<select>` custom styles partially ignored on iOS; `backdrop-filter` has no `@supports` guard; hover image-zoom causes "stuck hover" on touch devices.
 
 ### Chat 4 — Audit & issue triage (2026-06-11)
 - Full code audit performed across all source files.

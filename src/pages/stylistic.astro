@@ -3,6 +3,7 @@ import GalleryPage from '../layouts/GalleryPage.astro';
 import type { ImageMetadata } from 'astro';  // ← required
 import { globToPhotos } from '../utils/photos';
 
+<<<<<<< HEAD
 const photos = globToPhotos(
   import.meta.glob<{ default: ImageMetadata }>(
     '../assets/images/stylistic/*.{jpg,jpeg,JPG,png,PNG,webp}',
@@ -10,6 +11,22 @@ const photos = globToPhotos(
   )
 );
 photos.sort((a, b) => b.alt.localeCompare(a.alt));
+=======
+const photos = [
+  { src: '/images/stylistic/Plane_Full_Moon.png',    alt: 'Plane silhouette against a full moon', title: 'Plane Full Moon' },
+  { src: '/images/stylistic/Washburn_G2V_Sun.jpg',   alt: 'Washburn G2V guitar in sunlight',      title: 'Washburn G2V' },
+  { src: '/images/stylistic/Waxing_Gibbous_Moon.png',alt: 'Waxing Gibbous Moon',                  title: 'Waxing Gibbous Moon' },
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "ImageGallery",
+  "name": "Stylistic & Artistic Photography",
+  "description": "Stylistic and artistic photography by Ari Weber.",
+  "url": "https://ari-weber.com/stylistic/",
+  "author": { "@type": "Person", "name": "Ari Weber" },
+};
+>>>>>>> 9e4cf3f97996e1a46703293e98ada112f0807fff
 ---
 
 <GalleryPage
