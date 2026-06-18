@@ -7,17 +7,6 @@ import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';  // ← required
 import { globToPhotos } from '../utils/photos';
 
-//photo imports
-//import caveSunset   from '/src/assets/images/landscapes-architectural/Cave_Sunset_Greece.jpg';
-import cassidyBW   from '../assets/images/portraits/001_Cassidy_Portrait_B&W.jpg';
-import greeceParty from '../assets/images/events-concerts/003_Greece_Party.jpg';
-import planeMoon   from '../assets/images/stylistic/003_Plane_Full_Moon.png';
-import creswellSide from '../assets/images/landscapes-architectural/Creswell_Side.jpg';
-import catGreece   from '../assets/images/portraits/002_Cat_Greece.jpg';
-import elsaSnow    from '../assets/images/portraits/003_Elsa_Bridge_Snowing.jpg';
-import waxingMoon   from '../assets/images/stylistic/001_Waxing_Gibbous_Moon.png';
-import elsaTree     from '../assets/images/portraits/005_Elsa_Tree_Shot.jpg';
-
 
 const schema = {
   "@context": "https://schema.org",
@@ -37,6 +26,17 @@ const schema = {
     }
   ]
 };
+
+//photo imports
+//import caveSunset   from '../assets/images/landscapes-architectural/Cave_Sunset_Greece.jpg';
+import cassidyBW   from '../assets/images/portraits/001_Cassidy_Portrait_BW.jpg';
+import greeceParty from '../assets/images/events-concerts/003_Greece_Party.jpg';
+import planeMoon   from '../assets/images/stylistic/003_Plane_Full_Moon.png';
+import creswellSide from '../assets/images/landscapes-architectural/Creswell_Side.jpg';
+import catGreece   from '../assets/images/portraits/002_Cat_Greece.jpg';
+import elsaSnow    from '../assets/images/portraits/003_Elsa_Bridge_Snowing.jpg';
+import waxingMoon   from '../assets/images/stylistic/001_Waxing_Gibbous_Moon.png';
+import elsaTree     from '../assets/images/portraits/005_Elsa_Tree_Shot.jpg';
 
 const categories = [
   {
