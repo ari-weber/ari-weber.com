@@ -3,25 +3,20 @@ import Base from '../layouts/Base.astro';
 import CategoryCard from '../components/CategoryCard.astro';
 import FeaturedGrid from '../components/FeaturedGrid.astro';
 import GalleryGrid from '../components/GalleryGrid.astro';
+import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';  // ← required
 import { globToPhotos } from '../utils/photos';
 
 //photo imports
-//import caveSunset   from '/src/assets/images/landscapes-architectural/Cave_Sunset_Greece.jpg';
+import caveSunset   from '/src/assets/images/landscapes-architectural/Cave_Sunset_Greece.jpg';
 import cassidyBW   from '/src/assets/images/portraits/001_Cassidy_Portrait_B&W.jpg';
 import greeceParty from '/src/assets/images/events-concerts/003_Greece_Party.jpg';
 import planeMoon   from '/src/assets/images/stylistic/003_Plane_Full_Moon.png';
 import creswellSide from '/src/assets/images/landscapes-architectural/Creswell_Side.jpg';
 import catGreece   from '/src/assets/images/portraits/002_Cat_Greece.jpg';
-import washburnSun from '/src/assets/images/stylistic/002_Washburn_G2V_Sun.jpg';
-import meteora      from '/src/assets/images/landscapes-architectural/Monastery_Meteora.jpg';
 import elsaSnow    from '/src/assets/images/portraits/003_Elsa_Bridge_Snowing.jpg';
 import waxingMoon   from '/src/assets/images/stylistic/001_Waxing_Gibbous_Moon.png';
-import peristyle    from '/src/assets/images/landscapes-architectural/Peristyle_Columns.jpg';
 import elsaTree     from '/src/assets/images/portraits/005_Elsa_Tree_Shot.jpg';
-import poseidon     from '/src/assets/images/landscapes-architectural/Pillar_Names_Posidon_Temple.jpg';
-import judeBench    from '/src/assets/images/portraits/004_Jude_Greece_Bench_Sunset.jpg';
-import pickingFlowers from '/src/assets/images/portraits/009_Picking_Flowers_Greece.jpg';
 
 
 const schema = {
@@ -112,17 +107,38 @@ allPhotos.sort((a, b) => b.alt.localeCompare(a.alt));
     slot="head"
     rel="preload"
     as="image"
-    href="/src/assets/images/landscapes-architectural/Cave_Sunset_Greece.jpg"
+    href={creswellSide.src}
+    fetchpriority="high"
+  />
+  <link
+    slot="head"
+    rel="preload"
+    as="image"
+    href={cassidyBW.src}
+    fetchpriority="high"
+  />
+  <link
+    slot="head"
+    rel="preload"
+    as="image"
+    href={greeceParty.src}
+    fetchpriority="high"
+  />
+  <link
+    slot="head"
+    rel="preload"
+    as="image"
+    href={planeMoon.src}
     fetchpriority="high"
   />
   <!-- ── 1. Hero ── -->
   <section class="hero" aria-label="Hero">
     <!-- 4-image grid background -->
     <div class="hero-bg" aria-hidden="true">
-      <img src="/src/assets/images/landscapes-architectural/Cave_Sunset_Greece.jpg"  alt="" loading="eager" />
-      <img src="/src/assets/images/portraits/001_Cassidy_Portrait_B&W.jpg"                  alt="" loading="eager" />
-      <img src="/src/assets/images/events-concerts/003_Greece_Party.jpg"                    alt="" loading="lazy"  />
-      <img src="/src/assets/images/stylistic/003_Plane_Full_Moon.png"            alt="" loading="lazy"  />
+      <Image src={caveSunset}  alt="" loading="eager" />
+      <Image src={cassidyBW}                  alt="" loading="eager" />
+      <Image src={greeceParty}                    alt="" loading="lazy"  />
+      <Image src={planeMoon}            alt="" loading="lazy"  />
     </div>
     <div class="hero-overlay" aria-hidden="true"></div>
 
