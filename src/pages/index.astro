@@ -28,7 +28,7 @@ const schema = {
 };
 
 //photo imports
-//import caveSunset   from '../assets/images/landscapes-architectural/Cave_Sunset_Greece.jpg';
+import caveSunset   from '../assets/images/landscapes-architectural/Cave_Sunset_Greece.jpg';
 import cassidyBW   from '../assets/images/portraits/001_Cassidy_Portrait_BW.jpg';
 import greeceParty from '../assets/images/events-concerts/003_Greece_Party.jpg';
 import planeMoon   from '../assets/images/stylistic/003_Plane_Full_Moon.png';
@@ -135,7 +135,7 @@ allPhotos.sort((a, b) => b.alt.localeCompare(a.alt));
   <section class="hero" aria-label="Hero">
     <!-- 4-image grid background -->
     <div class="hero-bg" aria-hidden="true">
-      <Image src={creswellSide}  alt="" loading="eager" />
+      <Image src={caveSunset}  alt="" loading="eager" />
       <Image src={cassidyBW}                  alt="" loading="eager" />
       <Image src={greeceParty}                    alt="" loading="lazy"  />
       <Image src={planeMoon}            alt="" loading="lazy"  />
