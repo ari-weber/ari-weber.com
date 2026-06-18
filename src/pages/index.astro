@@ -48,44 +48,28 @@ const categories = [
     number: '01',
     label: 'Landscapes & Architectural',
     href: '/landscapes/',
-<<<<<<< HEAD
     imageSrc: caveSunset,
-=======
-    imageSrc: '/images/landscapes/Cave_Sunset_Greece.JPG',
->>>>>>> 9e4cf3f97996e1a46703293e98ada112f0807fff
     imageAlt: 'Cave Sunset, Greece',
   },
   {
     number: '02',
     label: 'Portraits',
     href: '/portraits/',
-<<<<<<< HEAD
     imageSrc: elsaTree,
-=======
-    imageSrc: '/images/portraits/Elsa_Tree_Shot.jpg',
->>>>>>> 9e4cf3f97996e1a46703293e98ada112f0807fff
     imageAlt: 'Portrait photo',
   },
   {
     number: '03',
     label: 'Concerts & Events',
     href: '/events/',
-<<<<<<< HEAD
     imageSrc: greeceParty,
-=======
-    imageSrc: '/images/events/Greece_Party.jpg',
->>>>>>> 9e4cf3f97996e1a46703293e98ada112f0807fff
     imageAlt: 'Event photo, Greece',
   },
   {
     number: '04',
     label: 'Stylistic',
     href: '/stylistic/',
-<<<<<<< HEAD
     imageSrc: planeMoon,
-=======
-    imageSrc: '/images/stylistic/Plane_Full_Moon.png',
->>>>>>> 9e4cf3f97996e1a46703293e98ada112f0807fff
     imageAlt: 'Plane silhouette against a full moon',
   },
 ];
@@ -94,35 +78,22 @@ interface FeaturedPhoto { src: ImageMetadata; alt: string; caption?: string; }
 
 const featured: [FeaturedPhoto, FeaturedPhoto, FeaturedPhoto] = [
   {
-<<<<<<< HEAD
     src: elsaSnow,
-=======
-    src: '/images/portraits/Elsa_Bridge_Snowing.jpg',
->>>>>>> 9e4cf3f97996e1a46703293e98ada112f0807fff
     alt: 'Elsa Shilling on a bridge in the snow, Athens GA',
     caption: 'Elsa Shilling in the snow — Athens, GA, 2026',
   },
   {
-<<<<<<< HEAD
     src: waxingMoon,
-=======
-    src: '/images/stylistic/Waxing_Gibbous_Moon.png',
->>>>>>> 9e4cf3f97996e1a46703293e98ada112f0807fff
     alt: 'Waxing Gibbous Moon',
     caption: 'Waxing Gibbous — 2026',
   },
   {
-<<<<<<< HEAD
     src: catGreece,
-=======
-    src: '/images/portraits/Cat_Greece.jpg',
->>>>>>> 9e4cf3f97996e1a46703293e98ada112f0807fff
     alt: 'Cat in Greece',
     caption: 'Cat — Athens, Greece, 2026',
   },
 ];
 
-<<<<<<< HEAD
 const allPhotos = globToPhotos(
   import.meta.glob<{ default: ImageMetadata }>(
     '../assets/images/*/*.{jpg,jpeg,JPG,png,PNG,webp}',
@@ -130,25 +101,6 @@ const allPhotos = globToPhotos(
   )
 );
 allPhotos.sort((a, b) => b.alt.localeCompare(a.alt));
-=======
-const allPhotos = [
-  { src: '/images/events/Greece_Party.jpg',                    alt: 'Greece Party',              title: 'Greece Party' },
-  { src: '/images/landscapes/Cave_Sunset_Greece.JPG',    alt: 'Cave Sunset, Greece',       title: 'Cave Sunset, Greece' },
-  { src: '/images/portraits/Cassidy_Portrait_B&W.JPG',                   alt: 'Cassidy — Portrait B&W',    title: 'Cassidy' },
-  { src: '/images/stylistic/Plane_Full_Moon.png',             alt: 'Plane passing a full moon', title: 'Plane Full Moon' },
-  { src: '/images/landscapes/Creswell_Side.jpg',          alt: 'Creswell — side view',      title: 'Creswell Side' },
-  { src: '/images/portraits/Cat_Greece.jpg',                              alt: 'Cat in Greece',             title: 'Cat, Greece' },
-  { src: '/images/stylistic/Washburn_G2V_Sun.jpg',            alt: 'Washburn G2V guitar in sun',title: 'Washburn G2V' },
-  { src: '/images/landscapes/Monastery_Meteora.JPG',      alt: 'Monastery at Meteora',      title: 'Meteora Monastery' },
-  { src: '/images/portraits/Elsa_Bridge_Snowing.jpg',                     alt: 'Elsa on bridge, snowing',   title: 'Elsa — Bridge Snowing' },
-  { src: '/images/stylistic/Waxing_Gibbous_Moon.png',         alt: 'Waxing Gibbous Moon',       title: 'Waxing Gibbous Moon' },
-  { src: '/images/landscapes/Peristyle_Columns.JPG',      alt: 'Peristyle columns',         title: 'Peristyle Columns' },
-  { src: '/images/portraits/Elsa_Tree_Shot.jpg',                          alt: 'Elsa by a tree',            title: 'Elsa — Tree Shot' },
-  { src: '/images/landscapes/Pillar_Names_Posidon_Temple.jpg', alt: 'Pillars at Temple of Poseidon', title: 'Temple of Poseidon' },
-  { src: '/images/portraits/Jude_Greece_Bench_Sunset.jpg',                alt: 'Jude on a bench at sunset, Greece', title: 'Jude — Greece Sunset' },
-  { src: '/images/portraits/Picking_Flowers_Greece.jpg',                  alt: 'Picking flowers, Greece',   title: 'Picking Flowers, Greece' },
-];
->>>>>>> 9e4cf3f97996e1a46703293e98ada112f0807fff
 ---
 
 <Base
@@ -167,17 +119,10 @@ const allPhotos = [
   <section class="hero" aria-label="Hero">
     <!-- 4-image grid background -->
     <div class="hero-bg" aria-hidden="true">
-<<<<<<< HEAD
       <img src="/src/assets/images/landscapes-architectural/Cave_Sunset_Greece.jpg"  alt="" loading="eager" />
       <img src="/src/assets/images/portraits/001_Cassidy_Portrait_B&W.jpg"                  alt="" loading="eager" />
       <img src="/src/assets/images/events-concerts/003_Greece_Party.jpg"                    alt="" loading="lazy"  />
       <img src="/src/assets/images/stylistic/003_Plane_Full_Moon.png"            alt="" loading="lazy"  />
-=======
-      <img src="/images/landscapes/Cave_Sunset_Greece.JPG"  alt="" loading="eager" />
-      <img src="/images/portraits/Cassidy_Portrait_B&W.JPG"                  alt="" loading="eager" />
-      <img src="/images/events/Greece_Party.jpg"                    alt="" loading="lazy"  />
-      <img src="/images/stylistic/Plane_Full_Moon.png"            alt="" loading="lazy"  />
->>>>>>> 9e4cf3f97996e1a46703293e98ada112f0807fff
     </div>
     <div class="hero-overlay" aria-hidden="true"></div>
 

@@ -12,30 +12,15 @@ const { photos } = Astro.props;
 
 <div class="gallery-grid">
   {photos.map((photo, i) => (
-<<<<<<< HEAD
     <figure class="gallery-item scroll-reveal" style={`transition-delay: ${(i % 6) * 60}ms`}>
       <button
         class="gallery-item-inner"
         data-lightbox-src={photo.src.src}
-=======
-    <figure
-      class="gallery-item scroll-reveal"
-      style={`transition-delay: ${(i % 6) * 60}ms`}
-    >
-      <!-- new -->
-      <button
-        class="gallery-item-inner"
-        data-lightbox-src={photo.src}
->>>>>>> 9e4cf3f97996e1a46703293e98ada112f0807fff
         data-lightbox-alt={photo.alt}
         aria-label={`View ${photo.title ?? photo.alt}`}
       >
         <img
-<<<<<<< HEAD
           src={photo.src.src}
-=======
-          src={photo.src}
->>>>>>> 9e4cf3f97996e1a46703293e98ada112f0807fff
           alt=""
           loading="lazy"
           decoding="async"
@@ -50,12 +35,8 @@ const { photos } = Astro.props;
 
 <style>
   .gallery-grid {
-<<<<<<< HEAD
     columns: 1;
     column-gap: var(--space-3);
-=======
-    columns: 2;
->>>>>>> 9e4cf3f97996e1a46703293e98ada112f0807fff
   }
 
   @media (min-width: 640px) {
@@ -122,6 +103,16 @@ const { photos } = Astro.props;
   }
 
     button.gallery-item-inner {
+    appearance: none;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+  }
+
+  button.gallery-item-inner {
     appearance: none;
     background: none;
     border: none;
