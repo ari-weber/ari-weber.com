@@ -8,7 +8,7 @@ import type { ImageMetadata } from 'astro';  // ← required
 import { globToPhotos } from '../utils/photos';
 
 //photo imports
-import caveSunset   from '/src/assets/images/landscapes-architectural/Cave_Sunset_Greece.jpg';
+//import caveSunset   from '/src/assets/images/landscapes-architectural/Cave_Sunset_Greece.jpg';
 import cassidyBW   from '/src/assets/images/portraits/001_Cassidy_Portrait_B&W.jpg';
 import greeceParty from '/src/assets/images/events-concerts/003_Greece_Party.jpg';
 import planeMoon   from '/src/assets/images/stylistic/003_Plane_Full_Moon.png';
@@ -135,7 +135,7 @@ allPhotos.sort((a, b) => b.alt.localeCompare(a.alt));
   <section class="hero" aria-label="Hero">
     <!-- 4-image grid background -->
     <div class="hero-bg" aria-hidden="true">
-      <Image src={caveSunset}  alt="" loading="eager" />
+      <Image src={creswellSide}  alt="" loading="eager" />
       <Image src={cassidyBW}                  alt="" loading="eager" />
       <Image src={greeceParty}                    alt="" loading="lazy"  />
       <Image src={planeMoon}            alt="" loading="lazy"  />
