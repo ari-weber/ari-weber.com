@@ -1,18 +1,15 @@
 ---
 import GalleryPage from '../layouts/GalleryPage.astro';
+import type { ImageMetadata } from 'astro';  // ← required
+import { globToPhotos } from '../utils/photos';
 
-const photos = [
-  { src: '/images/Event & Concert/Greece_Party.jpg', alt: 'Party in Greece', title: 'Greece Party' },
-];
-
-const schema = {
-  "@context": "https://schema.org",
-  "@type": "ImageGallery",
-  "name": "Event & Concert Photography",
-  "description": "Event and concert photography by Ari Weber.",
-  "url": "https://ari-weber.com/events/",
-  "author": { "@type": "Person", "name": "Ari Weber" },
-};
+const photos = globToPhotos(
+  import.meta.glob<{ default: ImageMetadata }>(
+    '../assets/images/events-concerts/*.{jpg,jpeg,JPG,png,PNG,webp}',
+    { eager: true }
+  )
+);
+photos.sort((a, b) => b.alt.localeCompare(a.alt));
 ---
 
 <GalleryPage
@@ -21,5 +18,4 @@ const schema = {
   eyebrow="Collection 03"
   heading="Event & Concert"
   photos={photos}
-  schema={schema}
 />

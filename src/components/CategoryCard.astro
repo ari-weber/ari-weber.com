@@ -1,9 +1,11 @@
 ---
+import { Image } from 'astro:assets';
+
 interface Props {
   number: string;
   label: string;
   href: string;
-  imageSrc: string;
+  imageSrc: ImageMetadata;
   imageAlt: string;
 }
 
@@ -12,7 +14,7 @@ const { number, label, href, imageSrc, imageAlt } = Astro.props;
 
 <a href={href} class="category-card scroll-reveal" aria-label={`Browse ${label}`}>
   <div class="card-image">
-    <img
+    <Image
       src={imageSrc}
       alt={imageAlt}
       loading="lazy"
