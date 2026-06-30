@@ -50,8 +50,8 @@ const currentPath = Astro.url.pathname;
     <!-- Mobile toggle -->
     <button
       class="nav-toggle"
-      aria-label="Open menu"
-      aria-expanded="false"
+      aria-label="Close menu"
+      aria-expanded="true"
       aria-controls="mobile-menu"
     >
       <span class="bar"></span>
@@ -61,7 +61,7 @@ const currentPath = Astro.url.pathname;
   </nav>
 
   <!-- Mobile menu -->
-  <div id="mobile-menu" class="mobile-menu" aria-hidden="true">
+  <div id="mobile-menu" class="mobile-menu is-open" aria-hidden="false">
     <ul role="list">
       {[...navLinks, ...galleryLinks].map(link => (
         <li>
@@ -148,7 +148,7 @@ const currentPath = Astro.url.pathname;
     content: '';
     position: absolute;
     bottom: -2px;
-    left: 0;
+    right: 0;
     width: 0;
     height: 1px;
     background: var(--accent);
@@ -201,7 +201,7 @@ const currentPath = Astro.url.pathname;
 
   /* ── Mobile menu ── */
   .mobile-menu {
-    position: absolute; top: 100%;
+    position: absolute; top: 100%; right: 0;
     display: none;
     background: var(--bg-raised);
     border-top: 1px solid var(--border);
